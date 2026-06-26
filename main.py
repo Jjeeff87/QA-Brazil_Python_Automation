@@ -1,45 +1,52 @@
 import data
 import helpers
+from selenium import webdriver
+from pages import UrbanRoutesPage
+
 
 
 class TestUrbanRoutes:
 
     @classmethod
     def setup_class(cls):
-        if helpers.is_url_reachable(data.URBAN_ROUTES_URL):
-            print("Conectado ao servidor Urban Routes")
-        else:
-            print("Não foi possível conectar ao Urban Routes. verifique se o servidor está ligado e ainda em execução.")
+        cls.driver = webdriver.Chrome()
+        cls.driver.maximize_window()
+        cls.driver.implicitly_wait(10)
+        cls.driver.get(data.URBAN_ROUTES_URL)
+
 
     def test_set_route(self):
-        # Adicionar em S8
-        pass
+        page = UrbanRoutesPage(self.__class__.driver)
+        page.set_route(data.ADDRESS_FROM, data.ADDRESS_TO)
 
-    def test_select_plan(self):
-        # Adicionar em S8
-        pass
+
+    def test_select_comfort(self):
+     pass
 
     def test_fill_phone_number(self):
-        # Adicionar em S8
-        pass
+     pass
+
 
     def test_fill_card(self):
-        # Adicionar em S8
-        pass
+          pass
 
     def test_comment_for_driver(self):
-        # Adicionar em S8
-        pass
+        page = UrbanRoutesPage(self.__class__.driver)
+        page.set_route(data.ADDRESS_FROM, data.ADDRESS_TO)
+        page.fill_comment(data.MESSAGE_FOR_DRIVER)
+
 
     def test_order_blanket_and_handkerchiefs(self):
-        # Adicionar em S8
         pass
 
     def test_order_2_ice_creams(self):
-        for _ in range(2):
-            # Adicionar em S8
-            pass
+       pass
 
     def test_car_search_model_appears(self):
         # Adicionar em S8
         pass
+
+    @classmethod
+    def teardown_class(cls):
+        cls.driver.quit()
+
